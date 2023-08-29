@@ -7,6 +7,7 @@ const userSchema = new mongoose.Schema({
         required : [true,"please provide a username"],
         unique : true
     },
+    
     firstName : {
         type : String , 
         required : [true,"please provide your first name"],
@@ -26,7 +27,7 @@ const userSchema = new mongoose.Schema({
     },
     profile: {
         type : String , 
-        default : "profile.jpeg"
+        required:[true,"please choose your  profile image"]
     },
     password : {
         type : String , 
@@ -34,7 +35,7 @@ const userSchema = new mongoose.Schema({
     },
     confirmPassword : {
         type:String,
-        required:[true,"please confirms your password"],
+        required:[true,"please confirm your password"],
         validate : {
             validator : function(cp){
                 return this.password == cp

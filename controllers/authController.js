@@ -13,14 +13,16 @@ const passPort = (userId,res)=>{
     const jwt_ =  jwt.sign({id:userId},JWT_SECRET,{expiresIn :JWT_EXPIRES_IN})
     res.cookie("jwt",jwt_,{
         expires: new Date(Date.now() + process.env.COOKIEEX * 24 * 60 * 60 * 1000),
-    })
+        httpOnly: true,
+  secure: true,
+   })
     return jwt_
 }
 const login = catchAsync(async(req,res,next)=>{
     const {email,password}= req.body
     if(!email) return next(new AppError("please provide your email",400))
     const user = await User.findOne({email})
-    if(!user ||! await user.isCorrectPassword(password) ) return next(new AppError("invalid email or password"))
+    if(!user ||! await user.isCorrectPassword(password) ) return next(new AppError("invalid email or password",400))
     res.status(201).json({
     status : "success" , 
         user,
@@ -52,8 +54,8 @@ const signUp = catchAsync(async(req,res,next)=>{
         req.body.profile = req.files.profile[0].filename
         console.log(req.body.profile)
     }
-    const {userName,firstName,lastName,phone,email,password,profile,confirmPassword}=req.body
-    const user = await User.create({userName,firstName,lastName,phone,email,password,profile,confirmPassword})
+    const {userName,firstName,lastName,phone,email,password,profile,confirmPassword,role}=req.body
+    const user = await User.create({userName,firstName,lastName,phone,email,password,profile,confirmPassword,role})
     res.status(201).json({
         status : "success",
         user,
@@ -131,9 +133,10 @@ const forgetPassword = catchAsync(async(req,res,next)=>{
     const user = await User.findOne({email})
     if(!user)return next(new AppError("invalid email adress",404))
     const resetToken = await user.generateResetToken()
+    const message_ = `please reset your password by clicking on this link : http://localhost:5173/resetPassword/${resetToken}`
     await user.save({validateBeforeSave : false})
     try {
-        await sendEmail({to:user.email ,subject:"please reset your password",text:resetToken})
+        await sendEmail({to:user.email ,subject:"please reset your password",text:message_})
         res.status(201).json({status:"success",message:"reset email has been sent to your inbox"})
 
     } catch (error) {

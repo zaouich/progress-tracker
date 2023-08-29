@@ -10,7 +10,8 @@ router.post("/resetPassword/:token",resetPassword)
 router.post("/updateMe",checkLogin,checkConfirmed,uploadProfileImage,resizeImage,updateMe)
 router.post("/updatePassword",checkLogin,checkConfirmed,updatePassword)
 router.post("/deleteMe",checkLogin,deleteMe)
-router.post("/logout",checkLogin,checkConfirmed,logout)
+router.post("/logout",checkLogin,logout)
 router.get("/checkLogin",checkLoginClt)
+router.get("/checkConfirmed",checkLogin,checkConfirmed)
 
 module.exports = router
