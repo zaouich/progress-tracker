@@ -32,6 +32,7 @@ const CastError =(err)=>{
 }
 // product handler
 const prodHandller = (err,req,res)=>{
+    console.log(err)
     if(err.isOperational) return res.status(err.statusCode ).json({
         status : err.status,
         message:err.message})

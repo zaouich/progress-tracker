@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     },
     email : {
         type:  String , 
-        required:[true],
+        required:[true,"please provide your email"],
         unique : true
     },
     profile: {
@@ -65,7 +65,12 @@ const userSchema = new mongoose.Schema({
     expiresConfirmationResetToken:{
         type : Date
     }
-})
+},
+{
+    toJSON : {virtuals : true},
+    toObject : {virtuals : true}
+}
+)
 
 userSchema.pre("save",async function(next){
     if(this.isModified("password")){
@@ -111,6 +116,15 @@ userSchema.methods.generateResetToken = function(){
     })
     return resetToken
 }
-
+userSchema.virtual("products",{
+    ref : "Product",
+    foreignField : "user",
+    localField : "_id"
+})
+/* userSchema.pre(/^find/,function(next){
+    this.populate({path:"products",select:"name description price productImage productsImages"})
+    next()
+})
+ */
 const User = model("User",userSchema)
 module.exports = User

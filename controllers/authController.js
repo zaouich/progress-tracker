@@ -43,7 +43,7 @@ const uploadProfileImage = upload.fields([
     {name:'profile',maxCount:1}
 ])
 const resizeImage =(req,res,next) =>{
-    if(! req.files || ! req.files.profile || ! req.files.profile[0]) return next()
+    if( ! req.files.profile ) return next()
     req.files.profile[0].filename = `1-${Date.now()}.jpeg`
     sharp(req.files.profile[0].buffer).resize(300,300).toFormat("jpeg").jpeg({quality:90}).toFile(`public/imgs/users/profile/${req.files.profile[0].filename}`)
     next()
@@ -162,8 +162,9 @@ const resetPassword = catchAsync(async(req,res,next)=>{
     res.status(201).json({status : "success" ,message : "thanks for reseting your password"})
 })
 const updateMe = catchAsync(async(req,res,next)=>{
+    console.log(req.body)
     const allowed = ["userName","firstName","lastName","phone","email","profile"]
-    if(req.files && req.files.profile[0] && req.files.profile[0].filename.length >0){ 
+    if(req.files && req.files.profile){ 
         allowed.push("profile")
         req.body.profile = req.files.profile[0].filename
     }
@@ -171,6 +172,7 @@ const updateMe = catchAsync(async(req,res,next)=>{
         if(! allowed.includes(el)) delete req.body[el]
     })
     const user = await User.findByIdAndUpdate(req.user._id,req.body,{new : true , runValidators:true})
+    console.log(user)
     res.status(201).json({
         status:"success" , 
         user
