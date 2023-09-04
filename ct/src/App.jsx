@@ -16,6 +16,8 @@ import axios from 'axios'
 import Header from './components/Header'
 import Profile from './components/Profile'
 import ChangePassword from './components/ChangePassword'
+import ProjectsAdmin from './components/ProjectsAdmin'
+import CreateProject from './components/CreateProject'
 function App() {
   const dispatch = useDispatch()
 
@@ -45,12 +47,14 @@ function App() {
       userinfo={user}
       />
       <Routes>
+      <Route path='/'  element={<ProjectsAdmin/>}/>
       <Route path='/login'  element={<Login/>}/>
       <Route path='/signUp'  element={<SignUp/>}/>
       <Route path='/profile'  element={<Profile userinfo={user}/>}/>
       <Route path='/forgetPassword'  element={<ForgetPassword/>}/>
       <Route path='/resetPassword/:token'  element={<ResetPassword/>}/>
       <Route path="/updatePassword" element={<ChangePassword userinfo={user}/>} />
+      <Route path='/createProject'  element={<CreateProject/>}/>
     </Routes>
       </>
       

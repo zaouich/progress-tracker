@@ -2,6 +2,7 @@ const express = require("express")
 const app =express()
 const cors = require("cors")
 const userRouter = require("./routes/userRoutes")
+const projectRouter = require("./routes/projectRoutes")
 const errController = require("./controllers/errController")
 const cookieParser = require("cookie-parser")
 app.use(cors({
@@ -17,5 +18,6 @@ app.use((req,res,next)=>{
     next()
 })
 app.use("/api/v1/users/",userRouter)
+app.use("/api/v1/projects",projectRouter)
 app.use(errController)
 module.exports = app
