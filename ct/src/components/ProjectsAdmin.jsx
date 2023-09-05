@@ -48,7 +48,9 @@ const ProjectsAdmin = () => {
                 <div className="card">
                     <div className="card-body p-4">
                         <h4 className="card-title">{project.name}</h4>
-                        <p className="card-text">{project.description}</p><button className="btn btn-primary" type="button">enter</button>
+                        <p className="card-text">{project.description}</p><button className="btn btn-primary" type="button">enter</button><button className="btn btn-warning 
+                        mx-2" type="button"><Link to={`/updateProject/${project._id}`}>update</Link> </button><button className="btn btn-danger" type="button" ><Link to={`/updateProjectPassword/${project._id}`}>delete</Link></button>
+                        
                     </div>
                 </div>
             </div><hr

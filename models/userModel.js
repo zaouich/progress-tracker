@@ -83,6 +83,12 @@ userSchema.pre("save",async function(next){
     }
     next()
 })
+userSchema.virtual("projectsAdmin",{
+    ref : "Project",
+    foreignField : "admin",
+    localField : "_id"
+})
+
 userSchema.pre(/^find/,function(next){
     this.find({active: true})
     next()

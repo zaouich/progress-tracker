@@ -18,6 +18,10 @@ import Profile from './components/Profile'
 import ChangePassword from './components/ChangePassword'
 import ProjectsAdmin from './components/ProjectsAdmin'
 import CreateProject from './components/CreateProject'
+import UpdateProject from './components/UpdateProject'
+import NoteFound from './components/NoteFound'
+import DeleteProject from './components/DeleteProject'
+import UpdateProjectPassword from './components/UpdateProjectPassword'
 function App() {
   const dispatch = useDispatch()
 
@@ -55,6 +59,10 @@ function App() {
       <Route path='/resetPassword/:token'  element={<ResetPassword/>}/>
       <Route path="/updatePassword" element={<ChangePassword userinfo={user}/>} />
       <Route path='/createProject'  element={<CreateProject/>}/>
+      <Route path='/updateProject/:projectId'  element={<UpdateProject/>}/>
+      <Route path='/deleteProject/:projectId'  element={<DeleteProject/>}/>
+      <Route path='/updateProjectPassword/:projectId'  element={<UpdateProjectPassword/>}/>
+  <Route path='*' element={<NoteFound/>}/>
     </Routes>
       </>
       
