@@ -1,16 +1,16 @@
 import axios from "axios";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const ChangePassword = (props) => {
-    if(!props.userinfo){
-        toast.error("you must login first")
-        setTimeout(() => {
+    const navigate = useNavigate()
 
-        window.location.href = "/login"
-        }, 2000);
-    }
+    useEffect(()=>{
+        if(! props.userinfo) {
+            navigate("/login")
+      }
+    },[])
     const [oldPassword, setOldPassword] = useState('') 
     const [newPassword, setNewPassword] = useState('')
     const [confirmNewPassword, setConfirmNewPassword] = useState('')

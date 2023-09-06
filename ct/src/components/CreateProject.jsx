@@ -1,15 +1,23 @@
 import axios from "axios"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import {  ToastContainer } from "react-toastify"
 
-const CreateProject = () => {
+const CreateProject = (props) => {
     const [name, setName] = useState("")
 
     const [description, setDescription] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    const navigate = useNavigate()
+    useEffect(()=>{
+        if(! props.userinfo) {
+            navigate("/login")
+      }
+    },[])
     const handleCreateProject = (e)=>{
+        
         e.preventDefault()
         axios.post("http://127.0.0.1:3000/api/v1/projects/",{name, description, password, confirmPassword},{withCredentials: true}).then((res)=>{
         toast.success("project created successfully")

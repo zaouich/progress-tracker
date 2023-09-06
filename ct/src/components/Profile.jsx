@@ -1,22 +1,24 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from "react-toastify"
 
 const Profile = (props) => {
-    if(!props.userinfo){
-        toast.error("you must login first")
-        setTimeout(() => {
-
-        window.location.href = "/login"
-        }, 2000);
-    }
-    const [username, setUsername] = useState(props.userinfo.userName)
-    const [firstname, setFirstname] = useState(props.userinfo.firstName)
-    const [lastname, setLastname] = useState(props.userinfo.lastName)
-    const [email, setEmail] = useState(props.userinfo.email)
-    const [phone, setPhone] = useState(props.userinfo.phone)
+    const navigate = useNavigate()
+    
+    useEffect(() => {
+        console.log(props)
+        if(! props.userinfo) {
+            navigate("/login")
+      } 
+    },)
+    // in the first the props.userinfo is null so we need to use useEffect to wait for the props.userinfo to be not null but that not gonna solve the problem becose i have used the null values in the componnent <>{userName}</>
+    const [username, setUsername] = useState(props.userinfo ? props.userinfo.userName :"")
+    const [firstname, setFirstname] = useState(props.userinfo ? props.userinfo.firstName:"")
+    const [lastname, setLastname] = useState(props.userinfo ? props.userinfo.lastName:"")
+    const [email, setEmail] = useState(props.userinfo ? props.userinfo.email:"")
+    const [phone, setPhone] = useState(props.userinfo ? props.userinfo.phone:"")
     const [profilePic, setProfilePic] = useState(null)
     const handleSignUp = (e)=>{
         
@@ -60,7 +62,7 @@ const Profile = (props) => {
                 <div className="card mb-5">
                     <div className="card-body d-flex flex-column align-items-center">
                     <img className="rounded-circle w-50 mb-3"
-                     src={`http://127.0.0.1:3000/imgs/users/profile/${props.userinfo.profile}`} />
+                     src={`http://127.0.0.1:3000/imgs/users/profile/${props.userinfo ? props.userinfo.profile :""}`} />
                         <form className="text-center" method="post" 
                         onSubmit={(e)=>{
                             e.preventDefault()
@@ -68,14 +70,14 @@ const Profile = (props) => {
                         }}
                         >
                             <div className="mb-3"><input className="form-control" type="text" name="username" placeholder="Username" value={
-                                username
+                                username 
                             }
                             onChange={(e)=>{
                                 setUsername(e.target.value)
                             }   }
                             /></div>
                             <div className="mb-3"><input className="form-control" type="text" name="firstname" placeholder="First Name" value={
-                                firstname
+                                firstname  
                             }
                             onChange={(e)=>{
                                 setFirstname(e.target.value)
@@ -84,7 +86,7 @@ const Profile = (props) => {
                             /></div>
                             <div className="mb-3"><input className="form-control" type="text" name="lastname" placeholder="Last Name" 
                             value={
-                                lastname
+                                lastname 
                             }
                             onChange={(e)=>{
                                 setLastname(e.target.value)
@@ -92,7 +94,7 @@ const Profile = (props) => {
                             /></div>
                             <div className="mb-3"><input className="form-control" type="email" name="email" placeholder="Email"
                             value={
-                                email
+                                email 
                             }
                             onChange={(e)=>{
                                 setEmail(e.target.value)
@@ -101,7 +103,7 @@ const Profile = (props) => {
                             <div className="mb-3"><input className="form-control" type="text" name="phone" placeholder="Phone"
                             
                             value={
-                                phone
+                                phone 
                             }
                             onChange={(e)=>{
                                 setPhone(e.target.value)

@@ -1,14 +1,20 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Triangle } from "react-loader-spinner"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { toast , ToastContainer } from "react-toastify"
 
-const DeleteProject = ()=>{
+const DeleteProject = (props)=>{
     const {projectId} = useParams()
     const [password, setPassword] = useState("")
     const [loaded, setLoaded] = useState(false)
+    const navigate = useNavigate()
+
     useEffect(()=>{
+        if(! props.userinfo) {
+            return  navigate("/login")
+    
+        }
         axios.get(`http://127.0.0.1:3000/api/v1/projects/${projectId}`,{withCredentials: true}).then(()=>{
             setLoaded(true)
 

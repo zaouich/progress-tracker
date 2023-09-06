@@ -1,17 +1,21 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Triangle } from "react-loader-spinner"
-import { Link, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import { toast , ToastContainer } from "react-toastify"
 
-const UpdateProject = ()=>{
+const UpdateProject = (props)=>{
     const {projectId} = useParams()
     const [project, setProject] = useState({})
     const [name, setName] = useState(project.name)
     const [description, setDescription] = useState(project.description)
     const [loaded, setLoaded] = useState(false)
-    
+    const navigate = useNavigate()
+
     useEffect(()=>{
+        if(! props.userinfo) {
+            navigate("/login")
+      }
         axios.get(`http://127.0.0.1:3000/api/v1/projects/${projectId}`,{withCredentials: true}).then((res)=>{
             setProject(res.data.project)
             setLoaded(true)

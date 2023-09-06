@@ -19,7 +19,7 @@ import ChangePassword from './components/ChangePassword'
 import ProjectsAdmin from './components/ProjectsAdmin'
 import CreateProject from './components/CreateProject'
 import UpdateProject from './components/UpdateProject'
-import NoteFound from './components/NoteFound'
+import NotFound from './components/NotFound'
 import DeleteProject from './components/DeleteProject'
 import UpdateProjectPassword from './components/UpdateProjectPassword'
 function App() {
@@ -51,18 +51,18 @@ function App() {
       userinfo={user}
       />
       <Routes>
-      <Route path='/'  element={<ProjectsAdmin/>}/>
+      <Route path='/'  element={<ProjectsAdmin userinfo={user}/>}/>
       <Route path='/login'  element={<Login/>}/>
       <Route path='/signUp'  element={<SignUp/>}/>
       <Route path='/profile'  element={<Profile userinfo={user}/>}/>
       <Route path='/forgetPassword'  element={<ForgetPassword/>}/>
       <Route path='/resetPassword/:token'  element={<ResetPassword/>}/>
       <Route path="/updatePassword" element={<ChangePassword userinfo={user}/>} />
-      <Route path='/createProject'  element={<CreateProject/>}/>
-      <Route path='/updateProject/:projectId'  element={<UpdateProject/>}/>
-      <Route path='/deleteProject/:projectId'  element={<DeleteProject/>}/>
-      <Route path='/updateProjectPassword/:projectId'  element={<UpdateProjectPassword/>}/>
-  <Route path='*' element={<NoteFound/>}/>
+      <Route path='/createProject'  element={<CreateProject userinfo={user}/>}/>
+      <Route path='/updateProject/:projectId'  element={<UpdateProject userinfo={user}/>}/>
+      <Route path='/deleteProject/:projectId'  element={<DeleteProject userinfo={user}/>}/>
+      <Route path='/updateProjectPassword/:projectId'  element={<UpdateProjectPassword userinfo={user}/>}/>
+  <Route path='*' element={<NotFound/>}/>
     </Routes>
       </>
       

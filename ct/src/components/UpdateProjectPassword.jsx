@@ -1,10 +1,10 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Triangle } from "react-loader-spinner"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { ToastContainer, toast } from "react-toastify"
 
-const UpdateProjectPassword = () => {
+const UpdateProjectPassword = (props) => {
     const {projectId} = useParams()
     const [oldPassword, setOldPassword] = useState('')
     const [newPassword, setNewPassword] = useState('')
@@ -21,7 +21,12 @@ const UpdateProjectPassword = () => {
             toast.error(err.response.data.message)
         })
     }
+    const navigate = useNavigate()
+
     useEffect(()=>{
+        if(! props.userinfo) {
+            navigate("/login")
+      }
         axios.get(`http://127.0.0.1:3000/api/v1/projects/${projectId}`,{withCredentials: true}).then(()=>{
             setLoaded(true)
 

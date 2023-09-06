@@ -1,12 +1,18 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Triangle } from "react-loader-spinner"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
-const ProjectsAdmin = () => {
+const ProjectsAdmin = (props) => {
+    const navigate = useNavigate()
+    
     const [projects, setProjects] = useState([])
     const [loaded, setLoaded] = useState(false)
     useEffect(() => {
+        if(! props.userinfo) {
+              navigate("/login")
+    
+        }
         axios.get("http://127.0.0.1:3000/api/v1/projects/",{withCredentials: true}).then((res)=>{
             setProjects(res.data.data.projects)
             setLoaded(true)
