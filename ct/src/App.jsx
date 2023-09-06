@@ -24,6 +24,7 @@ import DeleteProject from './components/DeleteProject'
 import UpdateProjectPassword from './components/UpdateProjectPassword'
 import JoinProject from './components/JoinProject'
 import JoinProjects from './components/JoinedProjects'
+import LeaveProject from './components/LeaveProject'
 function App() {
   const dispatch = useDispatch()
 
@@ -69,6 +70,7 @@ function App() {
       {/* member ships */}
       <Route path="/joinProject" element={<JoinProject userinfo={user}/>} />
       <Route path="/joinedProjects" element={<JoinProjects userinfo={user}/>} />
+      <Route path='/leaveProject/:projectId'  element={<LeaveProject userinfo={user}/>}/>
   <Route path='*' element={<NotFound/>}/>
     </Routes>
       </>

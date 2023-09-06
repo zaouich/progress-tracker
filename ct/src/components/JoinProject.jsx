@@ -20,7 +20,7 @@ const JoinProject = (props) => {
         ).then(()=>{
             toast.success("project joined successfully")
             setTimeout(()=>{
-                window.location.href = "/"
+                navigate("/joinedProjects")
             }, 2000)
         }).catch((err)=>{
             toast.error(err.response.data.message)

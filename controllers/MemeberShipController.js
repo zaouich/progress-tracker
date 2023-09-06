@@ -31,4 +31,21 @@ const getAllJoinedProjects = catchAsync(async(req,res,next)=>{
         memberShips
     })
 })
-module.exports = {joinProject,getAllJoinedProjects}
+
+const leaveProject = catchAsync(async(req,res,next)=>{
+    const {password}  = req.body
+    const {projectId} = req.params
+    const user = req.user
+    if(!password) return next(new AppError("please provide your password",400))
+    if(!await user.isCorrectPassword(password)) return next(new AppError("incorrect  account password",403))
+    const memeberShip = await MemeberShip.findOneAndDelete({
+        user : req.user._id , 
+        project : projectId
+        })  
+    if(!memeberShip) return next(new AppError("you are not a memeber in this project",404))
+    res.status(204).json({
+status : "success",
+message : "you have left the project"
+})
+})
+module.exports = {joinProject,getAllJoinedProjects,leaveProject}

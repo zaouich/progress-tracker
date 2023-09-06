@@ -53,7 +53,7 @@ const JoinProjects =(props)=>{
                 <div className="card">
                     <div className="card-body p-4">
                         <h4 className="card-title">{project.project.name}</h4>
-                        <p className="card-text">{project.project.description}</p><button className="btn btn-primary" type="button">enter</button><button className="btn btn-danger mx-2" type="button" ><Link to={`/deleteProject/${project._id}`}>quite</Link></button>
+                        <p className="card-text">{project.project.description}</p><button className="btn btn-primary" type="button">enter</button><button className="btn btn-danger mx-2" type="button" ><Link to={`/leaveProject/${project.project._id}`}>leave</Link></button>
                         
                     </div>
                 </div>
