@@ -28,6 +28,8 @@ const Header =  (props)=>{
                 <li className="nav-item"></li>
                 {
                     props.userinfo ? <>
+                                    <li className="nav-item"><a className="nav-link"><Link to="/joinedProjects">Joined Projects</Link> </a></li>
+                                    <li className="nav-item"><a className="nav-link" ><Link to="/projectsAdmin">My Projects</Link> </a></li>
                     <li className="nav-item dropdown show"><a className="dropdown-toggle nav-link" aria-expanded="true" data-bs-toggle="dropdown" href="#">{props.userinfo.userName}</a>
     <div className="dropdown-menu show" data-bs-popper="none"><a className="dropdown-item" ><Link to="/profile">profile</Link> </a><a class="dropdown-item" href="#"
     onClick={()=>handleLogout()}

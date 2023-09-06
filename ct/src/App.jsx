@@ -22,12 +22,13 @@ import UpdateProject from './components/UpdateProject'
 import NotFound from './components/NotFound'
 import DeleteProject from './components/DeleteProject'
 import UpdateProjectPassword from './components/UpdateProjectPassword'
+import JoinProject from './components/JoinProject'
+import JoinProjects from './components/JoinedProjects'
 function App() {
   const dispatch = useDispatch()
 
   const [loaded, setLoaded] = useState(false)
   const [user, setUser] = useState(null)
-  const [count, setCount] = useState(0)
   useEffect(() => {
     axios.get("http://127.0.0.1:3000/api/v1/users/checkLogin", {withCredentials: true}).then((res)=>{
     console.log("res(((((((((", res.data.user)
@@ -51,6 +52,7 @@ function App() {
       userinfo={user}
       />
       <Routes>
+        {/* auth */}
       <Route path='/'  element={<ProjectsAdmin userinfo={user}/>}/>
       <Route path='/login'  element={<Login/>}/>
       <Route path='/signUp'  element={<SignUp/>}/>
@@ -58,10 +60,15 @@ function App() {
       <Route path='/forgetPassword'  element={<ForgetPassword/>}/>
       <Route path='/resetPassword/:token'  element={<ResetPassword/>}/>
       <Route path="/updatePassword" element={<ChangePassword userinfo={user}/>} />
+      {/* projects */}
+      <Route path='/projectsAdmin'  element={<ProjectsAdmin userinfo={user}/>}/>
       <Route path='/createProject'  element={<CreateProject userinfo={user}/>}/>
       <Route path='/updateProject/:projectId'  element={<UpdateProject userinfo={user}/>}/>
       <Route path='/deleteProject/:projectId'  element={<DeleteProject userinfo={user}/>}/>
       <Route path='/updateProjectPassword/:projectId'  element={<UpdateProjectPassword userinfo={user}/>}/>
+      {/* member ships */}
+      <Route path="/joinProject" element={<JoinProject userinfo={user}/>} />
+      <Route path="/joinedProjects" element={<JoinProjects userinfo={user}/>} />
   <Route path='*' element={<NotFound/>}/>
     </Routes>
       </>

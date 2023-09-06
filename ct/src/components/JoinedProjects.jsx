@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { Triangle } from "react-loader-spinner"
 import { Link, useNavigate } from "react-router-dom"
 
-const ProjectsAdmin = (props) => {
+const JoinProjects =(props)=>{
     const navigate = useNavigate()
     
     const [projects, setProjects] = useState([])
@@ -12,8 +12,8 @@ const ProjectsAdmin = (props) => {
         if(! props.userinfo) {
               navigate("/login")
         }
-        axios.get("http://127.0.0.1:3000/api/v1/projects/",{withCredentials: true}).then((res)=>{
-            setProjects(res.data.data.projects)
+        axios.get("http://127.0.0.1:3000/api/v1/memberShips/",{withCredentials: true}).then((res)=>{
+            setProjects(res.data.memberShips)
             setLoaded(true)
         })
 
@@ -25,8 +25,8 @@ const ProjectsAdmin = (props) => {
     <div className="container py-4 py-xl-5">
         <div className="row mb-5">
             <div className="col-md-8 col-xl-6 text-center mx-auto">
-                <h2>Your Projects</h2>
-                <p className="w-lg-50">a list with all all the projects  that you have created</p>
+                <h2>Your Joined Projects</h2>
+                <p className="w-lg-50">a list with all all the joined projects  that you have created</p>
             </div>
         </div>
         <div className="col">
@@ -34,8 +34,8 @@ const ProjectsAdmin = (props) => {
                 bg-primary text-white text-center p-4
                 ">
                     <div className="card-body p-4">
-                        <h4 className="card-title">Create New Project</h4>
-                        <p className="card-text">create project, invite users. start tracking your project.</p><button className="btn btn-light" type="button"><Link to="/createProject">create</Link> </button>
+                        <h4 className="card-title">Join New Project</h4>
+                        <p className="card-text">Join project. start tracking your project.</p><button className="btn btn-light" type="button"><Link to="/joinProject">Join</Link> </button>
                     </div>
                 </div>
             </div>
@@ -52,9 +52,8 @@ const ProjectsAdmin = (props) => {
                 <div className="col" >
                 <div className="card">
                     <div className="card-body p-4">
-                        <h4 className="card-title">{project.name}</h4>
-                        <p className="card-text">{project.description}</p><button className="btn btn-primary" type="button">enter</button><button className="btn btn-warning 
-                        mx-2" type="button"><Link to={`/updateProject/${project._id}`}>update</Link> </button><button className="btn btn-danger" type="button" ><Link to={`/deleteProject/${project._id}`}>delete</Link></button>
+                        <h4 className="card-title">{project.project.name}</h4>
+                        <p className="card-text">{project.project.description}</p><button className="btn btn-primary" type="button">enter</button><button className="btn btn-danger mx-2" type="button" ><Link to={`/deleteProject/${project._id}`}>quite</Link></button>
                         
                     </div>
                 </div>
@@ -96,4 +95,4 @@ const ProjectsAdmin = (props) => {
         
     </>
 }
-export default ProjectsAdmin    
+export default JoinProjects
