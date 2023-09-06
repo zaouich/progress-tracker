@@ -66,6 +66,7 @@ const checkProjectAdmin = catchAsync(async(req,res,next)=>{
         admin : req.user._id
     })
     if(!project) return next(new AppError("no project for you found by that id",404))
+    req.project = project
     next()
 })
 const getOneProjectAsItsAdmin = catchAsync(async(req,res,next)=>{

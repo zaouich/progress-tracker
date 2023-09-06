@@ -48,4 +48,15 @@ status : "success",
 message : "you have left the project"
 })
 })
-module.exports = {joinProject,getAllJoinedProjects,leaveProject}
+const getMemebersAsAnAdmin = catchAsync(async(req,res,next)=>{
+    const members = req.project.memebers
+    res.status(200).json({
+        status : "success" ,
+        data :{
+            length : members.length,
+            members
+        } 
+        
+    })
+})
+module.exports = {joinProject,getAllJoinedProjects,leaveProject,getMemebersAsAnAdmin}
