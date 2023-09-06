@@ -15,10 +15,10 @@ const Profile = (props) => {
     },)
     // in the first the props.userinfo is null so we need to use useEffect to wait for the props.userinfo to be not null but that not gonna solve the problem becose i have used the null values in the componnent <>{userName}</>
     const [username, setUsername] = useState(props.userinfo ? props.userinfo.userName :"")
-    const [firstname, setFirstname] = useState(props.userinfo ? props.userinfo.firstName:"")
-    const [lastname, setLastname] = useState(props.userinfo ? props.userinfo.lastName:"")
-    const [email, setEmail] = useState(props.userinfo ? props.userinfo.email:"")
-    const [phone, setPhone] = useState(props.userinfo ? props.userinfo.phone:"")
+    const [firstname, setFirstname] = useState(props.userinfo ?   props.userinfo.firstName :""  )
+    const [lastname, setLastname] = useState(props.userinfo ?  props.userinfo.lastName :"" )
+    const [email, setEmail] = useState(props.userinfo ?  props.userinfo.email :"" )
+    const [phone, setPhone] = useState(props.userinfo ?  props.userinfo.phone :"" )
     const [profilePic, setProfilePic] = useState(null)
     const handleSignUp = (e)=>{
         
@@ -62,7 +62,7 @@ const Profile = (props) => {
                 <div className="card mb-5">
                     <div className="card-body d-flex flex-column align-items-center">
                     <img className="rounded-circle w-50 mb-3"
-                     src={`http://127.0.0.1:3000/imgs/users/profile/${props.userinfo ? props.userinfo.profile :""}`} />
+                     src={`http://127.0.0.1:3000/imgs/users/profile/${props.userinfo ?  props.userinfo.profile  :""}`} />
                         <form className="text-center" method="post" 
                         onSubmit={(e)=>{
                             e.preventDefault()

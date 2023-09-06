@@ -1,5 +1,5 @@
 
-const NoteFound = () => {
+const NotFound = () => {
     return <section className="py-5 mt-5">
     <div className="container">
         <div className="row row-cols-1 d-flex justify-content-center align-items-center">
@@ -11,4 +11,4 @@ const NoteFound = () => {
     </div>
 </section>;
     };
-export default NoteFound;
+export default NotFound;
