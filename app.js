@@ -3,6 +3,7 @@ const app =express()
 const cors = require("cors")
 const userRouter = require("./routes/userRoutes")
 const projectRouter = require("./routes/projectRoutes")
+const memberShipRouter = require("./routes/memeberShipRoutes")
 const errController = require("./controllers/errController")
 const cookieParser = require("cookie-parser")
 app.use(cors({
@@ -19,5 +20,6 @@ app.use((req,res,next)=>{
 })
 app.use("/api/v1/users/",userRouter)
 app.use("/api/v1/projects",projectRouter)
+app.use("/api/v1/memberShips",memberShipRouter)
 app.use(errController)
 module.exports = app

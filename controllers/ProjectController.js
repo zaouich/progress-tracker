@@ -76,6 +76,15 @@ const getOneProjectAsItsAdmin = catchAsync(async(req,res,next)=>{
         project
     })
 })
+const checkProjectFoundByName = catchAsync(async(req,res,next)=>{
+    const {projectName,projectPassword} = req.body
+    if(!projectName) return next(new AppError("please provide the project name" ,404))
+    const project = await Project.findOne({name : projectName})
+    if(!project || ! await project.isCorrectPassword(projectPassword))  return  next(new AppError("invalid name or password" ,404))
+    req.project = project
+    next()
+})
+
 module.exports = {
     createProject,
     updateProject,
@@ -83,5 +92,6 @@ module.exports = {
     deleteProject,
     getAllUsersProject,
     checkProjectAdmin,
-    getOneProjectAsItsAdmin
+    getOneProjectAsItsAdmin,
+    checkProjectFoundByName
 }

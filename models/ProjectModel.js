@@ -33,6 +33,13 @@ const ProjectSchema = new mongoose.Schema({
         default : Date.now()
     }
 
+},{
+    toJSON : {
+        virtuals : true
+    },
+    toObject : {
+        virtuals : true
+    }
 })
 ProjectSchema.pre("save",async function(next){
     if(this.isModified("password")){
@@ -40,6 +47,15 @@ ProjectSchema.pre("save",async function(next){
         this.confirmPassword = undefined
         this.password =await bcrypt.hash(this.password,12)
     }
+    next()
+})
+ProjectSchema.virtual("memebers",{
+    ref : "MemeberShip",
+    localField : "_id",
+    foreignField : "project"
+})
+ProjectSchema.pre(/^find/,function(next){
+    this.populate("memebers")
     next()
 })
 ProjectSchema.methods.isCorrectPassword = function(condidate){
