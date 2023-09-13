@@ -59,4 +59,19 @@ const getMemebersAsAnAdmin = catchAsync(async(req,res,next)=>{
         
     })
 })
-module.exports = {joinProject,getAllJoinedProjects,leaveProject,getMemebersAsAnAdmin}
+const kickMember =catchAsync(async(req,res,next)=>{
+    const {password} = req.body
+    const user = req.user
+    if(!password) return next(new AppError("please provide you account password",400))
+    if(!await user.isCorrectPassword(password))return next(new AppError("invalid password",400))
+    const memeberShip = await MemeberShip.findOneAndDelete({_id:req.params.memeberShipId,project:req.params.projectId})
+    if(!memeberShip)return next(new AppError("no memeber ship Found",404))
+    res.status(204).json({
+        status : "success" , 
+        message : "memeberShip deleted"
+    })
+})
+
+
+module.exports = {joinProject,getAllJoinedProjects,leaveProject,getMemebersAsAnAdmin,kickMember
+}

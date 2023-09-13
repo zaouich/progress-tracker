@@ -54,10 +54,16 @@ ProjectSchema.virtual("memebers",{
     localField : "_id",
     foreignField : "project"
 })
+ProjectSchema.virtual("todos",{
+    ref : "Todo",
+    localField : "_id",
+    foreignField : "project"
+})
 ProjectSchema.pre(/^find/,function(next){
     this.populate("memebers")
     next()
 })
+
 ProjectSchema.methods.isCorrectPassword = function(condidate){
     return bcrypt.compare(condidate,this.password)
 }

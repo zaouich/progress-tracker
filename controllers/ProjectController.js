@@ -1,3 +1,4 @@
+const MemeberShip = require("../models/MemerShipeModel")
 const Project = require("../models/ProjectModel")
 const AppError = require("../utils/AppError")
 const catchAsync = require("../utils/catchAsync")
@@ -85,7 +86,25 @@ const checkProjectFoundByName = catchAsync(async(req,res,next)=>{
     req.project = project
     next()
 })
-
+const getOneProject = catchAsync(async(req,res,next)=>{ // for showing members
+    const userId = req.user._id
+    const projectId = req.params.projectId
+    
+    const projects = await  Project.find({
+        admin : userId,
+        _id : projectId
+    })
+    const memberShips_ = await MemeberShip.find({
+        project : projectId,
+        user : userId
+    })
+    if(projects.length ==0 && memberShips_.length==0) return next(new AppError("you are not a memeber in this project",404))
+    const project = await Project.findById(projectId).populate("admin").populate("todos")
+    res.status(200).json({
+        status : "success",
+        project
+    })
+})
 module.exports = {
     createProject,
     updateProject,
@@ -94,5 +113,6 @@ module.exports = {
     getAllUsersProject,
     checkProjectAdmin,
     getOneProjectAsItsAdmin,
-    checkProjectFoundByName
+    checkProjectFoundByName,
+    getOneProject
 }

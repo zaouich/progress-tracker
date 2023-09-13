@@ -31,8 +31,7 @@ const JoinProjects =(props)=>{
         </div>
         <div className="col">
                 <div className="card
-                bg-primary text-white text-center p-4
-                ">
+                bg-primary text-white text-center p-4">
                     <div className="card-body p-4">
                         <h4 className="card-title">Join New Project</h4>
                         <p className="card-text">Join project. start tracking your project.</p><button className="btn btn-light" type="button"><Link to="/joinProject">Join</Link> </button>
