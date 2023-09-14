@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { Triangle } from "react-loader-spinner"
 import { useNavigate, useParams } from "react-router-dom"
 import { ToastContainer, toast } from "react-toastify"
+import Loading from "./Loading"
 
 const UpdateProjectPassword = (props) => {
     const {projectId} = useParams()
@@ -87,26 +88,7 @@ const UpdateProjectPassword = (props) => {
         </div>
     </div>
 </section>
-       </> : <div 
-       style={{
-         display: "flex",
-         justifyContent: "center",
-         alignItems: "center",
-         height: "100vh"
-         
-       }}
-      >
-      
-      <Triangle
- height="200"
- width="200"
- color="#24285B"
- ariaLabel="triangle-loading"
- wrapperStyle={{}}
- wrapperclassNameNameName=""
- visible={true}
-/>
-       </div>
+       </> : <Loading/>
    }
    </>
 

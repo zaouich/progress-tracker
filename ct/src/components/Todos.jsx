@@ -2,6 +2,15 @@ import axios from "axios";
 
 import { Link,  useParams } from "react-router-dom";
 const Todos = (props) => {
+  // Define a function to format the date string
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Add leading zero if needed
+  const day = String(date.getDate()).padStart(2, '0'); // Add leading zero if needed
+  return `${year}-${month}-${day}`;
+}
+
     const {projectId}= useParams();
   return (
     <>
@@ -44,6 +53,7 @@ const Todos = (props) => {
                 }}
               />
               {props.todos.map((todo) => {
+                console.log(todo.user)
                 return (
                   <>
                     <div className="col">
@@ -54,10 +64,13 @@ const Todos = (props) => {
                                 color : todo.status === "finished" ? "green" : "red"
                           }}>({todo.status})</p></h4>
                           <p className="card-text">{todo.description}</p>
+                          <p className="card-text 
+                            text-primary
+                          ">{`${formatDate(todo.start)} - ${formatDate(todo.end)}`}</p>
                           <div className="col-md-7" key={''}>
                 <div className="p-4">
                     <div className="d-flex"><img className="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50" 
-                src={`http://127.0.0.1:3000/imgs/users/profile/1-1693243833062.jpeg`}
+                src={`http://127.0.0.1:3000/imgs/users/profile/${todo.user.profile}`}
                     />
                         <div>
                             <p className="fw-bold mb-0">{todo.user.userName}</p>
@@ -82,7 +95,7 @@ const Todos = (props) => {
                         mx-2"
                             type="button"
                           >
-                            <Link to={``}>
+                            <Link to={`/projects/${projectId}/updateTodo/${todo._id}`}>
                               update 
                             </Link>{" "}
                           </button> :null 

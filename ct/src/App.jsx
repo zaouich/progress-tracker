@@ -28,6 +28,7 @@ import LeaveProject from './components/LeaveProject'
 import Project from './components/Poroject'
 import KickOut from './components/KickOut'
 import CreateTodo from './components/CreateTodo'
+import UpdateTodo from './components/UpdateTodo'
 function App() {
   const dispatch = useDispatch()
 
@@ -78,6 +79,8 @@ function App() {
       <Route path='/projects/:projectId/memeberShips/:memeberShipId'  element={<KickOut/>}/>
       {/* todos */}
       <Route  path='/projects/:projectId/createTodo' element={<CreateTodo userinfo={user} />}/>
+      <Route  path='/projects/:projectId/updateTodo/:todoId' element={<UpdateTodo userinfo={user} />}/>
+
   <Route path='*' element={<NotFound/>}/>
     </Routes>
       </>

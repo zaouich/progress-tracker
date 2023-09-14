@@ -2,6 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { Triangle } from "react-loader-spinner"
 import { Link, useNavigate } from "react-router-dom"
+import Loading from "./Loading"
 
 const ProjectsAdmin = (props) => {
     const navigate = useNavigate()
@@ -53,7 +54,7 @@ const ProjectsAdmin = (props) => {
                 <div className="card">
                     <div className="card-body p-4">
                         <h4 className="card-title">{project.name}</h4>
-                        <p className="card-text">{project.description}</p><button className="btn btn-primary" type="button">enter</button><button className="btn btn-warning 
+                        <p className="card-text">{project.description}</p><button className="btn btn-primary" type="button"><Link to={`/projects/${project._id}`}>enter</Link></button><button className="btn btn-warning 
                         mx-2" type="button"><Link to={`/updateProject/${project._id}`}>update</Link> </button><button className="btn btn-danger" type="button" ><Link to={`/deleteProject/${project._id}`}>delete</Link></button>
                         
                     </div>
@@ -72,26 +73,7 @@ const ProjectsAdmin = (props) => {
             
         </div>
 </body>
-        </> :<div 
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh"
-          
-        }}
-       >
-       
-       <Triangle
-  height="200"
-  width="200"
-  color="#24285B"
-  ariaLabel="triangle-loading"
-  wrapperStyle={{}}
-  wrapperClassName=""
-  visible={true}
-/>
-        </div>
+        </> :<Loading/>
     }
         
     </>

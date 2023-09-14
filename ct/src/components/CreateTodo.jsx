@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Triangle } from "react-loader-spinner";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import Loading from "./Loading";
 
 const CreateTodo=(props)=>{
     const [loaded,setLoaded] = useState(false);
@@ -111,26 +112,7 @@ const CreateTodo=(props)=>{
         </div>
     </div>
 </section>
-        </> : <div 
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh"
-          
-        }}
-       >
-       
-       <Triangle
-  height="200"
-  width="200"
-  color="#24285B"
-  ariaLabel="triangle-loading"
-  wrapperStyle={{}}
-  wrapperClassName=""
-  visible={true}
-/>
-        </div>
+        </> : <Loading/>
     }
         
     </>

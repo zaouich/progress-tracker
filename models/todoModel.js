@@ -14,6 +14,7 @@ const TodoSchema = new mongoose.Schema({
     status : {
         type : String , 
         default : "not started",
+        required : [true , "please choose a status"],
         enum :{
             values : ["not started","started","finished"],
             message : "please provide a valid status"
@@ -22,6 +23,7 @@ const TodoSchema = new mongoose.Schema({
     project : {
         type : mongoose.Schema.ObjectId,
         ref : 'Project', 
+        required : [true , "please choose a project"],
     },
     description :{
         type: String , 
@@ -33,12 +35,14 @@ const TodoSchema = new mongoose.Schema({
     },
     end :{
         type : Date ,
-        required : [true,"please shoose a end date"],
+        required : [true,"please choose an end date"],
         validate : {
-            validator : function(end){
-                return new Date(end) > new Date(this.start)
+            validator : function(val){
+                const start = new Date(this.start)
+                const end = new Date(val)
+                return end > start
             },
-            message :"the end date should be bigger than the start date"
+            message : "the end date must be greater than the start date"
         }
     }
 },{
@@ -53,11 +57,13 @@ const TodoSchema = new mongoose.Schema({
 TodoSchema.pre(/^find/,function(next){
     this.populate({
         path : "user",
-        select : "userName email"
+        select : "userName email profile"
     })
     next()
 })
+
 const Todo = model("Todo",TodoSchema)
+
 
 
 

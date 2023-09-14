@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Memebers from "./Memebers";
 import Todos from "./Todos";
+import Loading from "./Loading";
 
 const Project =(props)=>{
     const navigate = useNavigate();
@@ -79,26 +80,7 @@ const Project =(props)=>{
                 }
               </>
 
-            : <div 
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh"
-          
-        }}
-       >
-       
-       <Triangle
-  height="200"
-  width="200"
-  color="#24285B"
-  ariaLabel="triangle-loading"
-  wrapperStyle={{}}
-  wrapperclassNameNameName=""
-  visible={true}
-/>
-        </div>}
+            : <Loading/>}
     
     </>
 }   

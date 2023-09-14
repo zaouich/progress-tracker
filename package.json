@@ -181,8 +181,8 @@
     "statuses": "^2.0.1",
     "streamsearch": "^1.1.0",
     "streamx": "^2.15.1",
-    "string-width": "^4.2.3",
     "string_decoder": "^1.1.1",
+    "string-width": "^4.2.3",
     "strip-ansi": "^6.0.1",
     "strip-json-comments": "^2.0.1",
     "supports-color": "^5.5.0",
@@ -209,7 +209,6 @@
     "xtend": "^4.0.2",
     "yallist": "^4.0.0"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
