@@ -1,4 +1,5 @@
 const { default: mongoose, model } = require("mongoose");
+const Project = require("./ProjectModel");
 
 const TodoSchema = new mongoose.Schema({
     name : {
@@ -60,6 +61,82 @@ TodoSchema.pre(/^find/,function(next){
         select : "userName email profile"
     })
     next()
+})
+TodoSchema.statics.calc = async function (projectId) {
+    const agg = await this.aggregate([
+        {
+            $match: { project: projectId }
+        },
+        {
+            $group: {
+                _id: "$status",
+                count: { $sum: 1 } // Count documents for each status
+            }
+        },
+        {
+            $group: {
+                _id: null,
+                total: { $sum: "$count" }, // Calculate the total count of all statuses
+                statuses: {
+                    $push: {
+                        status: "$_id",
+                        count: "$count"
+                    }
+                }
+            }
+        },
+        {
+            $unwind: "$statuses"
+        },
+        {
+            $project: {
+                _id: 0,
+                status: "$statuses.status",
+                percentage: {
+                    $multiply: [
+                        { $divide: ["$statuses.count", "$total"] }, // Calculate percentage
+                        100
+                    ]
+                }
+            }
+        }
+    ]);
+const a=  {}
+    if(agg.length > 0){
+       let status =  agg[0].status.toString()
+       if(status==="not started") status = "notStarted"
+         const percentage = agg[0].percentage
+        a[status] = percentage
+    }
+    if(agg.length > 1){
+        let status =  agg[1].status.toString()
+        if(status==="not started") status = "notStarted"
+
+        const percentage = agg[1].percentage
+       a[status] = percentage
+    }
+    if(agg.length > 2){
+        let status =  agg[2].status.toString()
+        if(status==="not started") status = "notStarted"
+
+        const percentage = agg[2].percentage
+       a[status] = percentage
+    }
+    console.log(a)
+    if(a.notStarted===undefined) a.notStarted = 0
+    if(a.started===undefined) a.started = 0
+    if(a.finished===undefined) a.finished = 0
+    await Project.findByIdAndUpdate(projectId, a)
+}
+
+  
+TodoSchema.post("save",async function(doc){
+    await doc.constructor.calc(doc.project)
+
+})
+TodoSchema.post(/^findOneAnd/,async function(doc){
+    await doc.constructor.calc(doc.project)
+
 })
 
 const Todo = model("Todo",TodoSchema)

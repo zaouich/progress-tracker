@@ -6,13 +6,14 @@ import { toast } from "react-toastify";
 import Memebers from "./Memebers";
 import Todos from "./Todos";
 import Loading from "./Loading";
+import Progress from "./Progress";
 
 const Project =(props)=>{
     const navigate = useNavigate();
     const {projectId} = useParams();
     const [project,setProject] = useState("");
     const [members,setMembers] = useState([]);
-    const [mode,setMode]= useState("memebers");
+    const [mode,setMode]= useState("todos");
     const [todos,setTodos] = useState([]);
     const [loaded ,setLoaded] = useState(false);
     useEffect(()=>{
@@ -74,7 +75,15 @@ const Project =(props)=>{
               {
                 mode ==="memebers" ? <Memebers members={members} project={project} userinfo={props.userinfo}/> : <>
                   {
-                    mode==="todos" ? <Todos project={project} userinfo={props.userinfo} todos={todos}/> : <></>
+                    mode==="todos" ? <Todos project={project} userinfo={props.userinfo} todos={todos}/> : <>
+                      {
+                        mode==="progress" ? <div className="container">
+                       <Progress 
+                        project={project}
+                       />
+                      </div> : <></>
+                      }
+                    </>
                   }
                 </>
                 }

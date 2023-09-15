@@ -31,7 +31,16 @@ const ProjectSchema = new mongoose.Schema({
     createdAt : {
         type : Date,
         default : Date.now()
-    }
+    },
+    notStarted : {
+        type : Number,
+    },
+    started : {
+        type : Number,
+    },
+    finished : {
+        type : Number,
+    },
 
 },{
     toJSON : {
