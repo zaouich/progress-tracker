@@ -85,7 +85,7 @@ function formatDate(dateString) {
                         mx-2"
                             type="button"
                           >
-                            <Link to={``}>
+                            <Link to={`/projects/${projectId}/updateTodoOwner/${todo._id}`}>
                               update Status
                             </Link>{" "}
                           </button> : <>

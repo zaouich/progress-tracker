@@ -66,9 +66,40 @@ const getOneTodo = catchAsync(async (req, res, next) => {
     todo,
   });
 });
+const getOneTodoAsOwner = catchAsync(async (req, res, next) => {
+  const todo = await Todo.findOne({
+    user : req.user._id,
+    project: req.params.projectId,
+    _id: req.params.id,
+  });
+  if (!todo) return next(new AppError("No todo found with that id", 404));
+  res.status(200).json({
+    status: "success",
+    todo,
+  });
+});
+
+const updateStatus = catchAsync(async(req,res,next)=>{
+  Object.keys(req.body).map((el) => {
+    if(el!=="status") delete req.body[el];
+  });
+  const todo = await Todo.findOneAndUpdate({
+    user : req.user._id,
+    project: req.params.projectId,
+    _id: req.params.id,
+  },req.body,{new:true,runValidators:true});
+  if (!todo) return next(new AppError("No todo found with that id", 404));
+  res.status(200).json({
+    status: "success",
+    todo,
+  });
+
+})
 module.exports = {
   createTodo,
   updateTodo,
   deleteTodo,
   getOneTodo,
+  updateStatus,
+  getOneTodoAsOwner
 };

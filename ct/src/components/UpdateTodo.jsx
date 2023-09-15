@@ -65,7 +65,7 @@ const UpdateTodo = (props)=>{
     const handleSubmit = (e)=>{
         console.log({name, description, start:new Date(start)
         , end:new Date(end), user:member, project: projectId, status },"wwwwwww")
-        axios.patch(`http://127.0.0.1:3000/api/v1/projects/${projectId}/todos/${todoId}`, {name, description, start:new Date(start)
+        axios.put(`http://127.0.0.1:3000/api/v1/projects/${projectId}/todos/${todoId}`, {name, description, start:new Date(start)
         , end:new Date(end), user:member, project: projectId, status }, {withCredentials: true}).then((res)=>{
             toast.success("todo updated successfully")
             
