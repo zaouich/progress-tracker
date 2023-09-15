@@ -104,7 +104,7 @@ function formatDate(dateString) {
                           
                           {
                             props.project.admin._id === props.userinfo._id ?<button className="btn btn-danger" type="button">
-                            <Link to={``}>
+                            <Link to={`/projects/${projectId}/deleteTodo/${todo._id}`}>
                               delete
                             </Link>
                           </button> :null 

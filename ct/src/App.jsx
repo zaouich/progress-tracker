@@ -29,6 +29,7 @@ import Project from './components/Poroject'
 import KickOut from './components/KickOut'
 import CreateTodo from './components/CreateTodo'
 import UpdateTodo from './components/UpdateTodo'
+import DeleteTodo from './components/DeleteTodo'
 function App() {
   const dispatch = useDispatch()
 
@@ -80,6 +81,7 @@ function App() {
       {/* todos */}
       <Route  path='/projects/:projectId/createTodo' element={<CreateTodo userinfo={user} />}/>
       <Route  path='/projects/:projectId/updateTodo/:todoId' element={<UpdateTodo userinfo={user} />}/>
+      <Route  path='/projects/:projectId/deleteTodo/:todoId' element={<DeleteTodo userinfo={user} />}/>
 
   <Route path='*' element={<NotFound/>}/>
     </Routes>

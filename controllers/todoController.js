@@ -40,9 +40,13 @@ const updateTodo = catchAsync(async (req, res, next) => {
   });
 });
 const deleteTodo = catchAsync(async (req, res, next) => {
+  const user = req.user;
+  const {password} = req.body;
+  if(!password) return next(new AppError("Please provide your password", 400));
+  if(!await user.isCorrectPassword(password)) return next(new AppError("Incorrect password", 400));
   const todo = await Todo.findOneAndDelete({
-    project: projectId,
-    _id: req.params.todoId,
+    project: req.params.projectId,
+    _id: req.params.id,
   });
   if (!todo) return next(new AppError("No todo found with that id", 404));
   res.status(204).json({
