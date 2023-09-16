@@ -1,7 +1,7 @@
-<h1>Project Name: classInfo</h1>
+<h1>Project Name: progress-tracker</h1>
 
 <h2>Project Description</h2>
-<p>classInfo is a simple project management tool that allows users to create and manage projects, invite team members, and track progress through shared to-do lists. It provides user roles for both project administrators and team members, enabling efficient collaboration and project management.</p>
+<p>progress-tracker is a simple project management tool that allows users to create and manage projects, invite team members, and track progress through shared to-do lists. It provides user roles for both project administrators and team members, enabling efficient collaboration and project management.</p>
 
 <h2>Features</h2>
 
