@@ -26,7 +26,7 @@
 <h3>1 Clone the repository to your local machine:</h3>
 
 ```git
-git clone https://github.com/yourusername/team-task-tracker.git
+git clone https://github.com/zaouich/classinfo.git
 ```
 ```bash
 cd classInfo
