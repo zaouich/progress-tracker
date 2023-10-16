@@ -6,6 +6,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
  
 const  Progress = ({project})=> {
+  console.log("ooooooooooo",project)
   const data = {
     labels: ['finished', 'started', 'not started'],
     datasets: [
@@ -36,7 +37,10 @@ const  Progress = ({project})=> {
             <div className="col-md-6 col-xl-4">
                 <div className="card mb-5">
                     <div className="card-body d-flex flex-column align-items-center">
-                    <Doughnut data={data} />
+                   
+                   {
+                   <Doughnut data={data} /> 
+                   }
 
                     </div>
                 </div>
